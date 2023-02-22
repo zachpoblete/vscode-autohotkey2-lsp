@@ -2562,29 +2562,29 @@ class Any {
 	/**
 	 * The implementation function of the retrieval method.
 	 */
-	GetMethod(Name) => Object
+	getMethod(Name) => Object
 
 	/**
 	 * If BaseObj is in Value's base object chain, it returns true, otherwise it returns false.
 	 */
-	HasBase(BaseObj) => Number
+	hasBase(BaseObj) => Number
 
 	/**
 	 * If the value has a method using this name, it returns true, otherwise it returns false.
 	 */
-	HasMethod(Name) => Number
+	hasMethod(Name) => Number
 
 	/**
 	 * If the value has an attribute with this name, it returns true, otherwise it returns false.
 	 */
-	HasProp(Name) => Number
+	hasProp(Name) => Number
 
 	__Init() => void
 
 	/**
 	 * The base object to retrieve the value.
 	 */
-	Base => Object
+	base => Object
 }
 
 class Array extends Object {
@@ -2601,57 +2601,57 @@ class Array extends Object {
 	/**
 	 * Return a shallow copy of the object.
 	 */
-	Clone() => Array
+	clone() => Array
 
 	/**
 	 * Defines the default value returned when an element with no value is requested.
 	 */
-	Default => Any
+	default => Any
 
 	/**
 	 * Delete the value of the array element so that the index does not contain a value.
 	 */
-	Delete(Index) => Any
+	delete(Index) => Any
 
 	/**
 	 * Returns the value at a given index, or a default value.
 	 */
-	Get(Index [, Default]) => Any
+	get(Index [, Default]) => Any
 
 	/**
 	 * If Index is valid and there is a value at that position, it returns true, otherwise it returns false.
 	 */
-	Has(Index) => Number
+	has(Index) => Number
 
 	/**
 	 * Insert one or more values to the given position.
 	 */
-	InsertAt(Index, Values*) => void
+	insertAt(Index, Values*) => void
 
 	/**
 	 * Delete and return the last array element.
 	 */
-	Pop() => Any
+	pop() => Any
 
 	/**
 	 * Append the value to the end of the array.
 	 */
-	Push(Values*) => void
+	push(Values*) => void
 
 	/**
 	 * Removes items from the array.
 	 */
-	RemoveAt(Index, Length := 1) => Any
+	removeAt(Index, Length := 1) => Any
 
 	/**
 	 * Retrieve or set the length of the array.
 	 */
-	Length => Number
+	length => Number
 
 	/**
 	 * Retrieve or set the current capacity of the array.
 	 */
-	Capacity => Number
+	capacity => Number
 }
 
 class BoundFunc extends Func {
@@ -2670,24 +2670,24 @@ class Buffer extends Object {
 	/**
 	 * Retrieve the current memory address of the buffer.
 	 */
-	Ptr => Number
+	ptr => Number
 
 	/**
 	 * Retrieve or set the size of the buffer, in bytes.
 	 */
-	Size => Number
+	size => Number
 }
 
 class Class extends Object {
 	/**
 	 * Construct a new instance of the class.
 	 */
-	static Call() => Class
+	static call() => Class
 
 	/**
 	 * Retrieve or set the object on which all instances of the class are based.
 	 */
-	static Prototype => Object
+	static prototype => Object
 }
 
 class ClipboardAll extends Buffer {
@@ -2707,18 +2707,18 @@ class ComObjArray extends ComValue {
 	 * Cannot be set to VT_ARRAY or VT_BYREF flags. VT_EMPTY and VT_NULL are not valid base types for arrays. All other types are legal.
 	 * @param Counts* The size of each dimension. Supports arrays of up to 8 dimensions.
 	 */
-	static Call(VarType, Counts*) => ComObjArray
+	static call(VarType, Counts*) => ComObjArray
 
 	/**
 	 * Enumerates array elements.
 	 */
 	__Enum(NumberOfVars?) => Enumerator
 
-	MaxIndex(n) => Number
+	maxIndex(n) => Number
 
-	MinIndex(n) => Number
+	minIndex(n) => Number
 
-	Clone() => ComObjArray
+	clone() => ComObjArray
 }
 
 class ComObject extends ComValue {
@@ -2727,7 +2727,7 @@ class ComObject extends ComValue {
 	 * @param CLSID The CLSID or readable Prog ID of the COM object to be created.
 	 * @param IID The identifier of the interface to be returned. In most cases, it is omitted; if omitted, it defaults to IID_IDispatch
 	 */
-	static Call(CLSID, IID := '{00020400-0000-0000-C000-000000000046}') => ComObject | ComValue
+	static call(CLSID, IID := '{00020400-0000-0000-C000-000000000046}') => ComObject | ComValue
 }
 
 class ComValue extends Any {
@@ -2737,7 +2737,7 @@ class ComValue extends Any {
 	 * @param Value The value to be wrapped. Currently only integer and pointer values are supported.
 	 * @param Flags Flags that affect the behavior of the wrapper object; for details, see ComObjFlags.
 	 */
-	static Call(VarType, Value [, Flags]) => ComValue | ComObject | ComObjArray
+	static call(VarType, Value [, Flags]) => ComValue | ComObject | ComObjArray
 }
 
 class ComValueRef extends ComValue {
@@ -2747,39 +2747,39 @@ class Enumerator extends Func {
 	/**
 	 * Retrieves the next item or items in an enumeration.
 	 */
-	Call(&OutputVar1?, &OutputVar2?, *) => Integer
+	call(&OutputVar1?, &OutputVar2?, *) => Integer
 }
 
 class Error extends Object {
 	/**
 	 * An error message.
 	 */
-	Message => String
+	message => String
 
 	/**
 	 * What threw the exception. This is usually the name of a function, but is blank for exceptions thrown due to an error in an expression (such as using a math operator on a non-numeric value).
 	 */
-	What => String
+	what => String
 
 	/**
 	 * A string value relating to the error, if available. If this value can be converted to a non-empty string, the standard error dialog displays a line with "Specifically:" followed by this string.
 	 */
-	Extra => String
+	extra => String
 
 	/**
 	 * The full path of the script file which contains the line at which the error occurred, or at which the Error object was constructed.
 	 */
-	File => String
+	file => String
 
 	/**
 	 * The line number at which the error occurred, or at which the Error object was constructed.
 	 */
-	Line => Number
+	line => Number
 
 	/**
 	 * A string representing the call stack at the time the Error object was constructed.
 	 */
-	Stack => String
+	stack => String
 
 	/**
 	 * Create an Error object.
@@ -2791,211 +2791,211 @@ class File extends Object {
 	/**
 	 * Retrieve or set the position of the file pointer.
 	 */
-	Pos => Number
+	pos => Number
 
 	/**
 	 * Retrieve or set the size of the file.
 	 */
-	Length => Number
+	length => Number
 
 	/**
 	 * Retrieve a non-zero value if the file pointer has reached the end of the file.
 	 */
-	AtEOF => Number
+	atEOF => Number
 
 	/**
 	 * Retrieve or set the text encoding used by this file object.
 	 */
-	Encoding => String
+	encoding => String
 
 	/**
 	 * Retrieve system file handles intended for use with DllCall.
 	 */
-	Handle => Number
+	handle => Number
 
 	/**
 	 * Read the string from the file and move the file pointer forward.
 	 */
-	Read([Characters]) => String
+	read([Characters]) => String
 
 	/**
 	 * Write a string to the file and move the file pointer forward.
 	 */
-	Write(String) => Number
+	write(String) => Number
 
 	/**
 	 * Read the original binary data from the file to the memory and move the file pointer forward.
 	 */
-	RawRead(Buffer [, Bytes]) => Number
+	rawRead(Buffer [, Bytes]) => Number
 
 	/**
 	 * Write the original binary data to the file and move the file pointer forward.
 	 */
-	RawWrite(Data [, Bytes]) => Number
+	rawWrite(Data [, Bytes]) => Number
 
 	/**
 	 * Read a line of text from the file and move the file pointer forward.
 	 */
-	ReadLine() => String
+	readLine() => String
 
 	/**
 	 * According to the flag used when opening the file, write the string followed by `n or `r`n. Move the file pointer forward.
 	 */
-	WriteLine([String]) => Number
+	writeLine([String]) => Number
 
 	/**
 	 * Read the specified type of data from the file and move the file pointer forward.
 	 */
-	ReadChar() => Number
+	readChar() => Number
 
 	/**
 	 * Read Double type data from the file and move the file pointer forward.
 	 */
-	ReadDouble() => Number
+	readDouble() => Number
 
 	/**
 	 * Read Float type data from the file and move the file pointer forward.
 	 */
-	ReadFloat() => Number
+	readFloat() => Number
 
 	/**
 	 * Read Int type data from the file and move the file pointer forward.
 	 */
-	ReadInt() => Number
+	readInt() => Number
 
 	/**
 	 * Read Int64 type data from the file and move the file pointer forward.
 	 */
-	ReadInt64() => Number
+	readInt64() => Number
 
 	/**
 	 * Read Short type data from the file and move the file pointer forward.
 	 */
-	ReadShort() => Number
+	readShort() => Number
 
 	/**
 	 * Read UChar type data from the file and move the file pointer forward.
 	 */
-	ReadUChar() => Number
+	readUChar() => Number
 
 	/**
 	 * Read UInt type data from the file and move the file pointer forward.
 	 */
-	ReadUInt() => Number
+	readUInt() => Number
 
 	/**
 	 * Read UShort type data from the file and move the file pointer forward.
 	 */
-	ReadUShort() => Number
+	readUShort() => Number
 
 	/**
 	 * Write Char type data to the file and move the file pointer forward.
 	 */
-	WriteChar(Num) => Number
+	writeChar(Num) => Number
 
 	/**
 	 * Write Double type data to the file and move the file pointer forward.
 	 */
-	WriteDouble(Num) => Number
+	writeDouble(Num) => Number
 
 	/**
 	 * Write Float type data to the file and move the file pointer forward.
 	 */
-	WriteFloat(Num) => Number
+	writeFloat(Num) => Number
 
 	/**
 	 * Write Int type data to the file and move the file pointer forward.
 	 */
-	WriteInt(Num) => Number
+	writeInt(Num) => Number
 
 	/**
 	 * Write Int64 type data to the file and move the file pointer forward.
 	 */
-	WriteInt64(Num) => Number
+	writeInt64(Num) => Number
 
 	/**
 	 * Write Short type data to the file and move the file pointer forward.
 	 */
-	WriteShort(Num) => Number
+	writeShort(Num) => Number
 
 	/**
 	 * Write UChar type data to the file and move the file pointer forward.
 	 */
-	WriteUChar(Num) => Number
+	writeUChar(Num) => Number
 
 	/**
 	 * Write UInt type data to the file and move the file pointer forward.
 	 */
-	WriteUInt(Num) => Number
+	writeUInt(Num) => Number
 
 	/**
 	 * Write UShort type data to the file and move the file pointer forward.
 	 */
-	WriteUShort(Num) => Number
+	writeUShort(Num) => Number
 
 	/**
 	 * Move the file pointer. If Origin is omitted, when the Distance is negative, Origin defaults to SEEK_END, and otherwise it is SEEK_SET..
 	 */
-	Seek(Distance [, Origin]) => Number
+	seek(Distance [, Origin]) => Number
 
 	/**
 	 * Close the file, write all the data in the cache to disk and release the shared lock.
 	 */
-	Close() => void
+	close() => void
 }
 
 class Float extends Number {
 	/**
 	 * Convert a numeric string or numerical to a floating point number.
 	 */
-	static Call(Value) => Float
+	static call(Value) => Float
 }
 
 class Func extends Object {
 	/**
 	 * Returns the name of the function.
 	 */
-	Name => String
+	name => String
 
 	/**
 	 * The built-in function returns true, otherwise it returns false.
 	 */
-	IsBuiltIn => Number
+	isBuiltIn => Number
 
 	/**
 	 * When the function is a variable parameter, it returns true, otherwise it returns false.
 	 */
-	IsVariadic => Number
+	isVariadic => Number
 
 	/**
 	 * Return the number of required parameters.
 	 */
-	MinParams => Number
+	minParams => Number
 
 	/**
 	 * For user-defined functions, return the number of officially declared parameters, for built-in functions, return the maximum number of parameters.
 	 */
-	MaxParams => Number
+	maxParams => Number
 
 	/**
 	 * call function.
 	 */
-	Call(Params*) => Any
+	call(Params*) => Any
 
 	/**
 	 * Bind parameters to the function and return the bound function object.
 	 */
-	Bind(Params*) => BoundFunc
+	bind(Params*) => BoundFunc
 
 	/**
 	 * Determine whether the parameter is of the ByRef type (if the parameter is omitted, it means whether the function contains a ByRef parameter).
 	 */
-	IsByRef(ParameterVar) => Number
+	isByRef(ParameterVar) => Number
 
 	/**
 	 * Determine whether the parameter is optional (if the parameter is omitted, it means whether the function contains optional parameters).
 	 */
-	IsOptional([ParamIndex]) => Number
+	isOptional([ParamIndex]) => Number
 }
 
 class Gui extends Object {
@@ -3007,42 +3007,42 @@ class Gui extends Object {
 	/**
 	 * Retrieve or set the background color of the window.
 	 */
-	BackColor => String
+	backColor => String
 
 	/**
 	 * Retrieve the GuiControl object of the focus control of the GUI.
 	 */
-	FocusedCtrl => String
+	focusedCtrl => String
 
 	/**
 	 * Retrieve the window handle (HWND) of the GUI window.
 	 */
-	Hwnd => Number
+	hwnd => Number
 
 	/**
 	 * Retrieve or set the size of the horizontal margin between the two sides and the subsequently created control.
 	 */
-	MarginX => Number
+	marginX => Number
 
 	/**
 	 * Retrieve or set the size of the vertical margin between the two sides and the subsequently created control.
 	 */
-	MarginY => Number
+	marginY => Number
 
 	/**
 	 * Retrieve or set the menu bar of the window.
 	 */
-	MenuBar => Menubar
+	menuBar => Menubar
 
 	/**
 	 * Retrieve or set the custom name of the GUI window.
 	 */
-	Name => String
+	name => String
 
 	/**
 	 * Retrieve or set the title of the GUI.
 	 */
-	Title => String
+	title => String
 
 	/**
 	 * Create a new Gui object.
@@ -3062,7 +3062,7 @@ class Gui extends Object {
 	 *         VScroll HScroll -Tabstop -Wrap
 	 *         BackgroundColor Border Theme Disabled Hidden
 	 */
-	Add(ControlType [, Options, Text]) => Gui.Control
+	add(ControlType [, Options, Text]) => Gui.Control
 
 	/**
 	 * Create a text control that the user cannot edit. Often used to label other controls.
@@ -3073,7 +3073,7 @@ class Gui extends Object {
 	 *         Border  Theme  Disabled  Hidden
 	 * @param Text The text  
 	 */
-	AddText([Options, Text]) => Gui.Text
+	addText([Options, Text]) => Gui.Text
 
 	/**
 	 * Create controls such as text, buttons or checkboxes, and return a GuiControl object.
@@ -3085,17 +3085,17 @@ class Gui extends Object {
 	 *        BackgroundColor Border Theme Disabled Hidden
 	 * @param Text The text in the Edit  
 	 */
-	AddEdit([Options, Text]) => Gui.Edit
+	addEdit([Options, Text]) => Gui.Edit
 
 	/**
 	 * Create UpDown control and return a GuiControl object.
 	 */
-	AddUpDown([Options, Text]) => Gui.UpDown
+	addUpDown([Options, Text]) => Gui.UpDown
 
 	/**
 	 * Create Picture control and return a GuiControl object.
 	 */
-	AddPicture([Options, Filename]) => Gui.Pic
+	addPicture([Options, Filename]) => Gui.Pic
 
 	/**
 	 * Adds a Button control and returns a GuiControl object.
@@ -3105,7 +3105,7 @@ class Gui extends Object {
 	 *   BackgroundColor Border Theme Disabled Hidden
 	 * @param Text The text of the button  
 	 */
-	AddButton([Options, Text]) => Gui.Button
+	addButton([Options, Text]) => Gui.Button
 
 	/**
 	 * Create Checkbox and return a GuiControl object.
@@ -3121,7 +3121,7 @@ class Gui extends Object {
 	 *               Border  Theme  Disabled  Hidden
 	 * @param Text The text of the Checkbox  
 	 */
-	AddCheckbox([Options, Text]) => Gui.Checkbox
+	addCheckbox([Options, Text]) => Gui.Checkbox
 
 	/**
 	 * Create Radio control and return a GuiControl object.
@@ -3137,147 +3137,147 @@ class Gui extends Object {
 	 *               Border  Theme  Disabled  Hidden
 	 * @param Text The text of the Checkbox  
 	 */
-	AddRadio([Options, Text]) => Gui.Radio
+	addRadio([Options, Text]) => Gui.Radio
 
 	/**
 	 * Create DropDownList control and return a GuiControl object.
 	 */
-	AddDropDownList([Options, Items]) => Gui.DDL
+	addDropDownList([Options, Items]) => Gui.DDL
 
 	/**
 	 * Create ComboBox control and return a GuiControl object.
 	 */
-	AddComboBox([Options, Items]) => Gui.ComboBox
+	addComboBox([Options, Items]) => Gui.ComboBox
 
 	/**
 	 * Create ListBox control and return a GuiControl object.
 	 */
-	AddListBox([Options, Items]) => Gui.ListBox
+	addListBox([Options, Items]) => Gui.ListBox
 
 	/**
 	 * Create ListView control and return a GuiControl object.
 	 */
-	AddListView([Options, Titles]) => Gui.ListView
+	addListView([Options, Titles]) => Gui.ListView
 
 	/**
 	 * Create TreeView control and return a GuiControl object.
 	 */
-	AddTreeView([Options, Text]) => Gui.TreeView
+	addTreeView([Options, Text]) => Gui.TreeView
 
 	/**
 	 * Create Link control and return a GuiControl object.
 	 */
-	AddLink([Options, Text]) => Gui.Link
+	addLink([Options, Text]) => Gui.Link
 
 	/**
 	 * Create Hotkey control and return a GuiControl object.
 	 */
-	AddHotkey([Options, Text]) => Gui.Hotkey
+	addHotkey([Options, Text]) => Gui.Hotkey
 
 	/**
 	 * Create DateTime control and return a GuiControl object.
 	 */
-	AddDateTime([Options, DateTime]) => Gui.DateTime
+	addDateTime([Options, DateTime]) => Gui.DateTime
 
 	/**
 	 * Create MonthCal control and return a GuiControl object.
 	 */
-	AddMonthCal([Options, YYYYMMDD]) => Gui.MonthCal
+	addMonthCal([Options, YYYYMMDD]) => Gui.MonthCal
 
 	/**
 	 * Create Slider control and return a GuiControl object.
 	 */
-	AddSlider([Options, Value]) => Gui.Slider
+	addSlider([Options, Value]) => Gui.Slider
 
 	/**
 	 * Create Progress control and return a GuiControl object.
 	 */
-	AddProgress([Options, Value]) => Gui.Progress
+	addProgress([Options, Value]) => Gui.Progress
 
 	/**
 	 * Create GroupBox control and return a GuiControl object.
 	 */
-	AddGroupBox([Options, Text]) => Gui.GroupBox
+	addGroupBox([Options, Text]) => Gui.GroupBox
 
 	/**
 	 * Create Tab control and return a GuiControl object.
 	 */
-	AddTab([Options, Pages]) => Gui.Tab
+	addTab([Options, Pages]) => Gui.Tab
 
 	/**
 	 * Create Tab2 control and return a GuiControl object.
 	 */
-	AddTab2([Options, Pages]) => Gui.Tab
+	addTab2([Options, Pages]) => Gui.Tab
 
 	/**
 	 * Create Tab3 control and return a GuiControl object.
 	 */
-	AddTab3([Options, Pages]) => Gui.Tab
+	addTab3([Options, Pages]) => Gui.Tab
 
 	/**
 	 * Create StatusBar control and return a GuiControl object.
 	 */
-	AddStatusBar([Options, Text]) => Gui.StatusBar
+	addStatusBar([Options, Text]) => Gui.StatusBar
 
 	/**
 	 * Create ActiveX control and return a GuiControl object.
 	 */
-	AddActiveX([Options, Component]) => Gui.ActiveX
+	addActiveX([Options, Component]) => Gui.ActiveX
 
 	/**
 	 * Create Custom controls and return a GuiControl object.
 	 */
-	AddCustom([Win32Class, Text]) => Gui.Custom
+	addCustom([Win32Class, Text]) => Gui.Custom
 
 	/**
 	 * Delete window.
 	 */
-	Destroy() => void
+	destroy() => void
 
 	/**
 	 * Flashing windows and their taskbar buttons.
 	 */
-	Flash(false) => void
+	flash(false) => void
 
 	/**
 	 * Retrieve the position and size of the working area of the window.
 	 */
-	GetClientPos([&X, &Y, &Width, &Height]) => void
+	getClientPos([&X, &Y, &Width, &Height]) => void
 
 	/**
 	 * Retrieve the position and size of the window.
 	 */
-	GetPos([&X, &Y, &Width, &Height]) => void
+	getPos([&X, &Y, &Width, &Height]) => void
 
 	/**
 	 * Hide window.
 	 */
-	Hide() => void
+	hide() => void
 
 	/**
 	 * Hide window.
 	 */
-	Cancel() => void
+	cancel() => void
 
 	/**
 	 * Open and maximize the window.
 	 */
-	Maximize() => void
+	maximize() => void
 
 	/**
 	 * Open and minimize the window.
 	 */
-	Minimize() => void
+	minimize() => void
 
 	/**
 	 * Move/resize the GUI window.
 	 */
-	Move([X, Y, Width, Height]) => void
+	move([X, Y, Width, Height]) => void
 
 	/**
 	 * Register a function or method to be called when a given event is triggered.
 	 */
-	OnEvent(EventName, Callback, AddRemove := 1) => void
+	onEvent(EventName, Callback, AddRemove := 1) => void
 
 	/**
 	 * Set various options and styles for the appearance and behavior of the window.
@@ -3286,12 +3286,12 @@ class Gui extends Object {
 	 * OwnDialogs '+Owner' OtherGui.hwnd   '+Parent' OtherGui.hwnd
 	 * SysMenu Theme ToolWindow
 	 */
-	Opt(Options) => void
+	opt(Options) => void
 
 	/**
 	 * Unhides the window (if necessary) and restores it, if it was minimized or maximized beforehand.
 	 */
-	Restore() => void
+	restore() => void
 
 	/**
 	 * Set the font, size, style, and text color of the subsequently created control.
@@ -3306,19 +3306,19 @@ class Gui extends Object {
 	 * Times New Roman
 	 * ...
 	 */
-	SetFont([Options, FontName]) => void
+	setFont([Options, FontName]) => void
 
 	/**
 	 * Display window. It can also minimize, maximize or move the window.
 	 * @param Options Positioning: Xn Yn Wn Hn  Center xCenter yCenter AutoSize
 	 * Minimize Maximize Restore NoActivate NA Hide
 	 */
-	Show([Options]) => void
+	show([Options]) => void
 
 	/**
 	 * Collect values from named controls and combine them into an object, optionally hiding the window.
 	 */
-	Submit(false) => void
+	submit(false) => void
 
 	class ActiveX extends Gui.Control {
 	}
@@ -3336,97 +3336,97 @@ class Gui extends Object {
 		/**
 		 * Retrieve the ClassNN of the control.
 		 */
-		ClassNN => String
+		classNN => String
 
 		/**
 		 * Retrieve the current interactive state of the control, or enable or disable (gray) the control.
 		 */
-		Enabled => Number
+		enabled => Number
 
 		/**
 		 * Retrieve the current focus state of the control.
 		 */
-		Focused => Number
+		focused => Number
 
 		/**
 		 * Retrieve the Gui parent control of the control.
 		 */
-		Gui => Gui
+		gui => Gui
 
 		/**
 		 * Retrieve the HWND of the control.
 		 */
-		Hwnd => Number
+		hwnd => Number
 
 		/**
 		 * Retrieve or set the explicit name of the control.
 		 */
-		Name => String
+		name => String
 
 		/**
 		 * Retrieve or set the text/title of the control.
 		 */
-		Text => String
+		text => String
 
 		/**
 		 * Retrieve the type of control.
 		 */
-		Type => String
+		type => String
 
 		/**
 		 * Retrieve new content or set it as a valuable control.
 		 */
-		Value => Number | String
+		value => Number | String
 
 		/**
 		 * Retrieve the current visible state of the control, or show or hide it.
 		 */
-		Visible => Number
+		visible => Number
 
 		/**
 		 * Set the keyboard focus to the control.
 		 */
-		Focus() => void
+		focus() => void
 
 		/**
 		 * Retrieve the position and size of the control.
 		 */
-		GetPos([&X, &Y, &Width, &Height]) => void
+		getPos([&X, &Y, &Width, &Height]) => void
 
 		/**
 		 * Move/resize controls.
 		 */
-		Move([X, Y, Width, Height]) => void
+		move([X, Y, Width, Height]) => void
 
 		/**
 		 * Register the function or method to be called when a given event is raised.
 		 */
-		OnEvent(EventName, Callback, AddRemove := 1) => void
+		onEvent(EventName, Callback, AddRemove := 1) => void
 
 		/**
 		 * Register the function or method to be called when the control notification is received through the WM_NOTIFY message.
 		 */
-		OnNotify(NotifyCode, Callback, AddRemove := 1) => void
+		onNotify(NotifyCode, Callback, AddRemove := 1) => void
 
 		/**
 		 * Set various options and styles for the appearance and behavior of the control.
 		 */
-		Opt(Options) => void
+		opt(Options) => void
 
 		/**
 		 * Redraw the GUI window area occupied by the control.
 		 */
-		Redraw() => void
+		redraw() => void
 
 		/**
 		 * Set the font, size, style and/or color of the control.
 		 */
-		SetFont([Options, FontName]) => void
+		setFont([Options, FontName]) => void
 
 		/**
 		 * Set the display format of the DateTime control.
 		 */
-		SetFormat([TimeFormat]) => void
+		setFormat([TimeFormat]) => void
 	}
 
 	class Custom extends Gui.Control {
@@ -3454,17 +3454,17 @@ class Gui extends Object {
 		/**
 		 * Add the specified item to the current list of the list box, drop-down list, combo box or tab control.
 		 */
-		Add(Items*) => void
+		add(Items*) => void
 
 		/**
 		 * Set the selection in the ListBox, DropDownList, ComboBox or Tab control to the specified value.
 		 */
-		Choose(Value) => void
+		choose(Value) => void
 
 		/**
 		 * Delete the specified item or all items of ListBox, DropDownList, ComboBox or Tab control.
 		 */
-		Delete([Index]) => void
+		delete([Index]) => void
 	}
 
 	class ListBox extends Gui.List {
@@ -3474,57 +3474,57 @@ class Gui extends Object {
 		/**
 		 * Add a new row to the bottom of the list and return the new row number. If the ListView has a Sort or SortDesc style, it may not be the last row.
 		 */
-		Add([Options, Cols*]) => void
+		add([Options, Cols*]) => void
 
 		/**
 		 * Delete the specified row, return 1 on success, and return 0 on failure.
 		 */
-		Delete([RowNumber]) => Number
+		delete([RowNumber]) => Number
 
 		/**
 		 * Delete the specified column and all the content under it, and return 1 on success and 0 on failure.
 		 */
-		DeleteCol(ColumnNumber) => Number
+		deleteCol(ColumnNumber) => Number
 
 		/**
 		 * Returns the number of rows or columns in the control.
 		 */
-		GetCount([Mode]) => Number
+		getCount([Mode]) => Number
 
 		/**
 		 * Return the line number of the next selected, selected or focused line, otherwise it returns zero.
 		 */
-		GetNext([StartingRowNumber, RowType]) => Number
+		getNext([StartingRowNumber, RowType]) => Number
 
 		/**
 		 * Retrieve the text of the specified row number and column number.
 		 */
-		GetText(RowNumber [, ColumnNumber]) => String
+		getText(RowNumber [, ColumnNumber]) => String
 
 		/**
 		 * Insert a new line at the specified line number, and return the new line number.
 		 */
-		Insert(RowNumber [, Options, Cols*]) => Number
+		insert(RowNumber [, Options, Cols*]) => Number
 
 		/**
 		 * Insert a new column at the specified column number, and return the position number of the new column.
 		 */
-		InsertCol(ColumnNumber [, Options, ColumnTitle]) => Number
+		insertCol(ColumnNumber [, Options, ColumnTitle]) => Number
 
 		/**
 		 * Modify the attributes/text of the row and return 1 on success and 0 on failure.
 		 */
-		Modify(RowNumber [, Options, NewCols*]) => Number
+		modify(RowNumber [, Options, NewCols*]) => Number
 
 		/**
 		 * Modify the attribute/text of the specified column and its title, and return 1 on success and 0 on failure.
 		 */
-		ModifyCol([ColumnNumber, Options, ColumnTitle]) => Number
+		modifyCol([ColumnNumber, Options, ColumnTitle]) => Number
 
 		/**
 		 * Set or replace ImageList, and return the ImageListID previously associated with this control (if not, return 0).
 		 */
-		SetImageList(ImageListID [, IconType]) => Number
+		setImageList(ImageListID [, IconType]) => Number
 	}
 
 	class MonthCal extends Gui.Control {
@@ -3546,17 +3546,17 @@ class Gui extends Object {
 		/**
 		 * Display a small icon on the left side of the text in the specified part, and return the handle of the icon.
 		 */
-		SetIcon(Filename, IconNumber := 1, PartNumber := 1) => Number
+		setIcon(Filename, IconNumber := 1, PartNumber := 1) => Number
 
 		/**
 		 * Divide the bar into multiple parts according to the specified width (in pixels), and return a non-zero value (HWND of the status bar).
 		 */
-		SetParts(Widths*) => Number
+		setParts(Widths*) => Number
 
 		/**
 		 * Display NewText in the specified part of the status bar, return 1 if successful, and return 0 if failed.
 		 */
-		SetText(NewText, PartNumber := 1, Style := 0) => Number
+		setText(NewText, PartNumber := 1, Style := 0) => Number
 	}
 
 	class Tab extends Gui.List {
@@ -3565,7 +3565,7 @@ class Gui extends Object {
 		 * The @param Value parameter is 1 for the first entry, 2 for the second, and so on. If Value is not an integer, the previous part of the tag that matches Value will be used. The search is not case sensitive. For example, if a control Contains the "UNIX Text" tag, specify the word unix (lowercase) to use it. If Value is 0, it is a blank string or is omitted, the subsequent controls will be added to the Tab control.
 		 * @param ExactMatch If this parameter is true, Value must match exactly, but it is not case sensitive.
 		 */
-		UseTab(Value := 0, ExactMatch := false) => void
+		useTab(Value := 0, ExactMatch := false) => void
 	}
 
 	class Text extends Gui.Control {
@@ -3575,64 +3575,64 @@ class Gui extends Object {
 		/**
 		 * Add a new item to the TreeView, and return its unique item ID number.
 		 */
-		Add(Name [, ParentItemID, Options]) => Number
+		add(Name [, ParentItemID, Options]) => Number
 
 		/**
 		 * Delete the specified item, return 1 if successful, and return 0 if failed.
 		 */
-		Delete([ItemID]) => Number
+		delete([ItemID]) => Number
 
 		/**
 		 * If the specified item has the specified attribute, a non-zero value (item ID) is returned.
 		 * @param ItemID selected item.
 		 * @param Attribute specify "E", "Expand" or "Expanded" to determine whether this item is currently expanded (that is, its sub-items are displayed); specify "C", "Check" or "Checked" to determine Whether this item contains a check mark; or specify "B" or "Bold" to determine whether this item is currently bold.
 		 */
-		Get(ItemID, Attribute) => Number
+		get(ItemID, Attribute) => Number
 
 		/**
 		 * Return the ID number of the first/top child item of the specified item (if there is none, return 0).
 		 */
-		GetChild(ParentItemID) => Number
+		getChild(ParentItemID) => Number
 
 		/**
 		 * Returns the total number of items in the control.
 		 */
-		GetCount() => Number
+		getCount() => Number
 
 		/**
 		 * Return the ID number of the next item below the specified item (if there is none, return 0).
 		 */
-		GetNext([ItemID, ItemType]) => Number
+		getNext([ItemID, ItemType]) => Number
 
 		/**
 		 * Return the parent item of the specified item as the item ID.
 		 */
-		GetParent(ItemID) => Number
+		getParent(ItemID) => Number
 
 		/**
 		 * Return the ID number of the previous item above the specified item (if there is none, return 0).
 		 */
-		GetPrev(ItemID) => Number
+		getPrev(ItemID) => Number
 
 		/**
 		 * Return the ID number of the selected item.
 		 */
-		GetSelection() => Number
+		getSelection() => Number
 
 		/**
 		 * Retrieve the text/name of the specified item.
 		 */
-		GetText(ItemID) => String
+		getText(ItemID) => String
 
 		/**
 		 * Modify the project's attributes/name, and return the project's own ID.
 		 */
-		Modify(ItemID [, Options, NewName]) => Number
+		modify(ItemID [, Options, NewName]) => Number
 
 		/**
 		 * Set or replace ImageList, and return the ImageListID previously associated with this control (if not, return 0).
 		 */
-		SetImageList(ImageListID [, IconType]) => Number
+		setImageList(ImageListID [, IconType]) => Number
 	}
 
 	class UpDown extends Gui.Control {
@@ -3646,92 +3646,92 @@ class InputHook extends Object {
 	/**
 	 * Returns the name of the end construction that was pressed when the Input was terminated.
 	 */
-	EndKey => String
+	endKey => String
 
 	/**
 	 * Returns the string that is logically the modifier key that was pressed when Input was terminated.
 	 */
-	EndMods => String
+	endMods => String
 
 	/**
 	 * Returns the EndReason string, which indicates how the Input is terminated.
 	 */
-	EndReason => String
+	endReason => String
 
 	/**
 	 * If the input is in progress, it returns true, otherwise it returns false.
 	 */
-	InProgress => Number
+	inProgress => Number
 
 	/**
 	 * Returns any text collected since the last time Input was started.
 	 */
-	Input => String
+	input => String
 
 	/**
 	 * Return the MatchList item that caused the Input to terminate.
 	 */
-	Match => String
+	match => String
 
 	/**
 	 * Retrieve or set the function object called when Input is terminated.
 	 */
-	OnEnd => Func
+	onEnd => Func
 
 	/**
 	 * Retrieve or set a function object, which will be called after characters are added to the input buffer.
 	 */
-	OnChar => Func
+	onChar => Func
 
 	/**
 	 * Retrieve or set the function object, which will be called when the button that enables notification is pressed.
 	 */
-	OnKeyDown => Func
+	onKeyDown => Func
 
 	/**
 	 * Retrieve or set the function object, which will be called when the enable notification button is released.
 	 */
-	OnKeyUp => Func
+	onKeyUp => Func
 
 	/**
 	 * Control whether Backspace deletes the most recently pressed character from the end of the input buffer.
 	 */
-	BackspaceIsUndo => Number
+	backspaceIsUndo => Number
 
 	/**
 	 * Control whether MatchList is case sensitive.
 	 */
-	CaseSensitive => Number
+	caseSensitive => Number
 
 	/**
 	 * Control whether each match can be a substring of the input text.
 	 */
-	FindAnywhere => Number
+	findAnywhere => Number
 
 	/**
 	 * Retrieve or set the minimum sending level of the input to be collected.
 	 */
-	MinSendLevel => Number
+	minSendLevel => Number
 
 	/**
 	 * Control whether the OnKeyDown and OnKeyUp callbacks are called when a non-text key is pressed.
 	 */
-	NotifyNonText => Number
+	notifyNonText => Number
 
 	/**
 	 * Retrieve or set the timeout value (in seconds).
 	 */
-	Timeout => Number
+	timeout => Number
 
 	/**
 	 * Control whether keys or key combinations that do not produce text are visible (not blocked).
 	 */
-	VisibleNonText => Number
+	visibleNonText => Number
 
 	/**
 	 * Control whether the key or key combination that generates the text is visible (not blocked).
 	 */
-	VisibleText => Number
+	visibleText => Number
 
 	/**
 	 * Create an object that can be used to collect or intercept keyboard input.
@@ -3794,29 +3794,29 @@ class InputHook extends Object {
 	 * 
 	 * V: Visible. Prevents key presses from being suppressed (blocked). This will override VisibleText or VisibleNonText until -V is used. +V means -S.
 	 */
-	KeyOpt(Keys, KeyOptions) => void
+	keyOpt(Keys, KeyOptions) => void
 
 	/**
 	 * Start collecting input.
 	 */
-	Start() => void
+	start() => void
 
 	/**
 	 * Terminate Input and set EndReason to the word Stopped.
 	 */
-	Stop() => void
+	stop() => void
 
 	/**
 	 * Wait until Input terminates (InProgress is false).
 	 */
-	Wait([MaxTime]) => Number
+	wait([MaxTime]) => Number
 }
 
 class Integer extends Number {
 	/**
 	 * Convert a numeric string or numerical to an integer.
 	 */
-	static Call(Value) => Integer
+	static call(Value) => Integer
 }
 
 class Map extends Object {
@@ -3833,52 +3833,52 @@ class Map extends Object {
 	/**
 	 * Remove all key-value pairs from the map.
 	 */
-	Clear() => void
+	clear() => void
 
 	/**
 	 * Return a shallow copy of the object.
 	 */
-	Clone() => Map
+	clone() => Map
 
 	/**
 	 * Remove key-value pairs from the map.
 	 */
-	Delete(Key) => Any
+	delete(Key) => Any
 
 	/**
 	 * Returns the value or default value associated with the key.
 	 */
-	Get(Key [, Default]) => Any
+	get(Key [, Default]) => Any
 
 	/**
 	 * If Key has an associated value in the map, it returns true, otherwise it returns false.
 	 */
-	Has(Key) => Number
+	has(Key) => Number
 
 	/**
 	 * Set zero or more items.
 	 */
-	Set(Key1, Value1, * ) => void
+	set(Key1, Value1, * ) => void
 
 	/**
 	 * Retrieve the number of key-value pairs present in the map.
 	 */
-	Count => Number
+	count => Number
 
 	/**
 	 * Retrieve or set the current capacity of the mapping.
 	 */
-	Capacity => Number
+	capacity => Number
 
 	/**
 	 * Retrieve or set the case sensitivity setting of the mapping.
 	 */
-	CaseSense => String
+	caseSense => String
 
 	/**
 	 * Define the default value returned when the key is not found.
 	 */
-	Default => Any
+	default => Any
 }
 
 class MemberError extends UnsetError {
@@ -3891,17 +3891,17 @@ class Menu extends Object {
 	/**
 	 * Retrieve or set the number of clicks required to activate the default item of the tray menu.
 	 */
-	ClickCount => Number
+	clickCount => Number
 
 	/**
 	 * Retrieve or set the default menu item.
 	 */
-	Default => String
+	default => String
 
 	/**
 	 * Retrieve the Win32 handle of the menu.
 	 */
-	Handle => Number
+	handle => Number
 
 	/**
 	 * Create a new Menu or MenuBar object.
@@ -3911,72 +3911,72 @@ class Menu extends Object {
 	/**
 	 * Add or modify menu items.
 	 */
-	Add([MenuItemName, Callback_or_Submenu, Options]) => void
+	add([MenuItemName, Callback_or_Submenu, Options]) => void
 
 	/**
 	 * Add a visible check mark next to the menu item.
 	 */
-	Check(MenuItemName) => void
+	check(MenuItemName) => void
 
 	/**
 	 * Delete one or all menu items.
 	 */
-	Delete([MenuItemName]) => void
+	delete([MenuItemName]) => void
 
 	/**
 	 * Change the menu item to gray, indicating that the user cannot select it.
 	 */
-	Disable(MenuItemName) => void
+	disable(MenuItemName) => void
 
 	/**
 	 * If it was previously disabled (grey), the user is allowed to select the menu item again.
 	 */
-	Enable(MenuItemName) => void
+	enable(MenuItemName) => void
 
 	/**
 	 * Insert a new item before the specified item.
 	 */
-	Insert([ItemToInsertBefore, NewItemName, Callback_or_Submenu, Options]) => void
+	insert([ItemToInsertBefore, NewItemName, Callback_or_Submenu, Options]) => void
 
 	/**
 	 * Rename the menu item (if NewName is empty or omitted, the MenuItemName will be converted to a divider).
 	 */
-	Rename(MenuItemName [, NewName]) => void
+	rename(MenuItemName [, NewName]) => void
 
 	/**
 	 * Change the background color of the menu.
 	 */
-	SetColor([ColorValue, Submenus := true]) => void
+	setColor([ColorValue, Submenus := true]) => void
 
 	/**
 	 * Set the icon to be displayed next to the menu item.
 	 */
-	SetIcon(MenuItemName, FileName [, IconNumber, IconWidth]) => void
+	setIcon(MenuItemName, FileName [, IconNumber, IconWidth]) => void
 
 	/**
 	 * Display the menu.
 	 */
-	Show([X, Y]) => void
+	show([X, Y]) => void
 
 	/**
 	 * Toggle the check mark next to the menu item.
 	 */
-	ToggleCheck(MenuItemName) => void
+	toggleCheck(MenuItemName) => void
 
 	/**
 	 * Enable or disable menu items.
 	 */
-	ToggleEnable(MenuItemName) => void
+	toggleEnable(MenuItemName) => void
 
 	/**
 	 * Remove the check mark (if any) from the menu item.
 	 */
-	Uncheck(MenuItemName) => void
+	uncheck(MenuItemName) => void
 
 	/**
 	 * Added standard tray menu items.
 	 */
-	AddStandard() => void
+	addStandard() => void
 }
 
 class MenuBar extends Menu {
@@ -3989,7 +3989,7 @@ class Number extends Primitive {
 	/**
 	 * Convert a numeric string or numerical to integer or floating point number.
 	 */
-	static Call(Value) => Integer | Float
+	static call(Value) => Integer | Float
 }
 
 class Object extends Any {
@@ -4001,32 +4001,32 @@ class Object extends Any {
 	/**
 	 * Return a shallow copy of the object.
 	 */
-	Clone() => Object
+	clone() => Object
 
 	/**
 	 * Define a new own attribute.
 	 */
-	DefineProp(Name, Desc) => void
+	defineProp(Name, Desc) => void
 
 	/**
 	 * Delete the attributes owned by the object.
 	 */
-	DeleteProp(Name) => Object
+	deleteProp(Name) => Object
 
 	/**
 	 * Returns the descriptor of a given own property, compatible with DefineProp.
 	 */
-	GetOwnPropDesc(Name) => Object
+	getOwnPropDesc(Name) => Object
 
 	/**
 	 * If the object has the attribute of the name, it returns true, otherwise it returns false.
 	 */
-	HasOwnProp(Name) => Number
+	hasOwnProp(Name) => Number
 
 	/**
 	 * Enumerate the properties of the object.
 	 */
-	OwnProps() => Enumerator
+	ownProps() => Enumerator
 }
 
 class OSError extends Error {
@@ -4043,34 +4043,34 @@ class RegExMatchInfo extends Object {
 	/**
 	 * Returns the position of the overall matched or captured sub-pattern.
 	 */
-	Pos([N]) => Number
+	pos([N]) => Number
 
 	/**
 	 * Returns the length of the overall matched or captured sub-pattern.
 	 */
-	Len([N]) => Number
+	len([N]) => Number
 
 	/**
 	 * Return the name of the given submode (if any).
 	 */
-	Name(N) => String
+	name(N) => String
 
 	/**
 	 * Returns the total number of sub-patterns.
 	 */
-	Count => Number
+	count => Number
 
 	/**
 	 * If applicable, return the last name encountered (*MARK: NAME).
 	 */
-	Mark => String
+	mark => String
 }
 
 class String extends Primitive {
 	/**
 	 * Convert the value to a string.
 	 */
-	static Call(Value) => String
+	static call(Value) => String
 }
 
 class TargetError extends Error {
