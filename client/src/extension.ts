@@ -302,29 +302,17 @@ async function compileScript() {
 			cmd += '/out "' + exePath + '"';
 	}
 	let process = child_process.exec(cmd, { cwd: resolve(currentPath, '..') });
-	if (process) {
+	if (process.pid) {
 		if ((cmd += ' ').toLowerCase().includes(' /gui '))
 			return;
 		outputchannel.show(true);
 		outputchannel.clear();
-		let start = new Date().getTime();
-		let timer = setInterval(() => {
-			let end = new Date().getTime();
-			if (!checkcompilesuccess()) {
-				if (end - start > 5000) {
-					clearInterval(timer);
-					window.showErrorMessage(zhcn ? '编译失败!' : 'Compiled failed!');
-				}
-			} else
-				clearInterval(timer);
-			function checkcompilesuccess() {
-				if (existsSync(exePath)) {
-					window.showInformationMessage(zhcn ? '编译成功!' : 'Compiled successfully!');
-					return true;
-				}
-				return false;
-			}
-		}, 1000);
+		process.on('exit', () => {
+			if (existsSync(exePath))
+				window.showInformationMessage(zhcn ? '编译成功!' : 'Compiled successfully!');
+			else
+				window.showErrorMessage(zhcn ? '编译失败!' : 'Compiled failed!');
+		});
 		process.stderr?.on('data', (error) => outputchannel.appendLine(error));
 		process.stdout?.on('data', (msg) => outputchannel.appendLine(msg));
 	} else
@@ -493,7 +481,11 @@ async function setInterpreter() {
 			return;
 		} else if (pick.selectedItems[0] === it) {
 			pick.ignoreFocusOut = true;
-			let path = await window.showOpenDialog({ filters: { Executables: ['exe'] }, openLabel: zhcn ? '选择解释器' : 'Select Interpreter' });
+			let path = await window.showOpenDialog({
+				defaultUri: ahkpath ? Uri.file(ahkpath) : undefined,
+				filters: { Executables: ['exe'] },
+				openLabel: zhcn ? '选择解释器' : 'Select Interpreter'
+			});
 			if (path)
 				sel.detail = path[0].fsPath;
 		} else {
