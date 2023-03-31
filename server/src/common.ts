@@ -25,7 +25,7 @@ import { diagnostic } from './localize';
 
 export const inBrowser = typeof process === 'undefined';
 export let connection: Connection, ahkpath_cur = '', workspaceFolders: string[] = [], dirname = '', isahk2_h = false;
-export let ahkvars: { [key: string]: DocumentSymbol } = {};
+export let ahkvars: { [key: string]: DocumentSymbol } = {}, ahkuris: { [name: string]: string } = {};
 export let libfuncs: { [uri: string]: DocumentSymbol[] } = {};
 export let symbolcache: { [uri: string]: SymbolInformation[] } = {};
 export let hoverCache: { [key: string]: [string, Hover] } = {}, libdirs: string[] = [];
@@ -77,7 +77,7 @@ export let utils = {
 export let locale = 'en-us';
 export type Maybe<T> = T | undefined;
 
-export enum LibIncludeType {
+enum LibIncludeType {
 	'Disabled',
 	'Local',
 	'User and Standard',
@@ -213,7 +213,7 @@ export function sendDiagnostics() {
 }
 
 export function initahk2cache() {
-	ahkvars = {};
+	ahkvars = {}, ahkuris = {};
 	dllcalltpe = ['str', 'astr', 'wstr', 'int64', 'int', 'uint', 'short', 'ushort', 'char', 'uchar', 'float', 'double', 'ptr', 'uptr', 'hresult'];
 	completionItemCache = {
 		sharp: [],
@@ -243,7 +243,7 @@ export async function loadahk2(filename = 'ahk2') {
 		let td = openFile(file + '.d.ahk');
 		if (td) {
 			let doc = new Lexer(td, undefined, 3);
-			doc.parseScript(), lexers[doc.uri] = doc;
+			doc.parseScript(), lexers[doc.uri] = doc, ahkuris[filename] = doc.uri;
 		}
 		let data;
 		if (filename === 'ahk2')
@@ -256,7 +256,7 @@ export async function loadahk2(filename = 'ahk2') {
 		let td: TextDocument | undefined;
 		if ((path = getlocalefilepath(file + '.d.ahk')) && (td = openFile(path))) {
 			let doc = new Lexer(td, undefined, 3);
-			doc.parseScript(), lexers[doc.uri] = doc;
+			doc.parseScript(), lexers[doc.uri] = doc, ahkuris[filename] = doc.uri;
 		}
 		if (!(path = getlocalefilepath(file + '.json')))
 			return;
@@ -293,7 +293,7 @@ function build_item_cache(ahk2: any) {
 				case 'keywords': type = CompletionItemKind.Keyword; break;
 				case 'variables':
 					for (snip of arr) {
-						ahkvars[snip.prefix.toLowerCase()] = {
+						ahkvars[snip.prefix.toUpperCase()] = {
 							name: snip.prefix,
 							kind: SymbolKind.Variable,
 							range: rg, selectionRange: rg,
@@ -403,6 +403,16 @@ export function update_settings(configs: AHKLSSettings) {
 		configs.AutoLibInclude = LibIncludeType[configs.AutoLibInclude] as unknown as LibIncludeType;
 	else if (typeof configs.AutoLibInclude === 'boolean')
 		configs.AutoLibInclude = configs.AutoLibInclude ? 3 : 0;
+	if (typeof configs.FormatOptions.brace_style === 'string')
+		switch (configs.FormatOptions.brace_style) {
+			case '0':
+			case 'Allman': configs.FormatOptions.brace_style = 0; break;
+			case '1':
+			case 'One True Brace': configs.FormatOptions.brace_style = 1; break;
+			case '-1':
+			case 'One True Brace Variant': configs.FormatOptions.brace_style = -1; break;
+			default: delete configs.FormatOptions.brace_style; break;
+		}
 	try {
 		update_commentTags(configs.CommentTags);
 	} catch (e: any) {
